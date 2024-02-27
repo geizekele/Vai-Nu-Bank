@@ -42,34 +42,4 @@ class Conta {
         System.out.println("CPF: " + cpf);
         System.out.println("Saldo: R$ " + saldo);
     }
-    
- // Métodos bancários comuns
-    public void realizarSaque(double valor) {
-        if (valor > 0 && valor <= saldo) {
-            saldo -= valor;
-            System.out.println("Saque de R$ " + valor + " realizado com sucesso.");
-        } else {
-            System.out.println("Saldo insuficiente ou valor inválido para saque.");
-        }
-    }
-
-    public void realizarDeposito(double valor) {
-        if (valor > 0) {
-            saldo += valor;
-            System.out.println("Depósito de R$ " + valor + " realizado com sucesso.");
-        } else {
-            System.out.println("Valor inválido para depósito.");
-        }
-    }
-
-    public void realizarTransferencia(Conta destino, double valor) {
-        if (valor > 0 && valor <= saldo) {
-            saldo -= valor;
-            destino.saldo += valor;
-            System.out.println("Transferência de R$ " + valor + " realizada com sucesso para a conta de "
-                    + destino.getNomeTitular() + ".");
-        } else {
-            System.out.println("Saldo insuficiente ou valor inválido para transferência.");
-        }
-    }
 }
