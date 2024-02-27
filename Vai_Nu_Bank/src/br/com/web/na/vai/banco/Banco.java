@@ -1,0 +1,23 @@
+package br.com.web.na.vai.banco;
+
+import br.com.web.na.vai.conta.Conta;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.web.na.vai.conta.Conta;
+
+// Classe para gerenciar as contas no banco
+public class Banco {
+    private List<Conta> contas;
+
+    public Banco() {
+        this.contas = new ArrayList<>();
+    }
+
+    public void cadastrarConta(Conta conta) {
+        contas.add(conta);
+        System.out.println("Conta cadastrada com sucesso.");
+    }
+    
+}
