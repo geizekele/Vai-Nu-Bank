@@ -4,8 +4,8 @@ package br.com.web.na.vai;
 class ContaCorrente extends Conta {
 	private double limiteCredito;
 
-	public ContaCorrente(int numero, int agencia, String nomeTitular, String cpf, double limiteCredito) {
-		super(numero, agencia, nomeTitular, cpf);
+	public ContaCorrente(int numero, int agencia, String nome, String cpf, double limiteCredito) {
+		super(numero, agencia, nome, cpf);
 		this.limiteCredito = limiteCredito;
 	}
 

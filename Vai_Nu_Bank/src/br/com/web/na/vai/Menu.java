@@ -1,75 +1,61 @@
-package br.com.web.na.vai; 
+package br.com.web.na.vai;
 import java.util.Scanner;
 
-// Classe base para Conta
-class Conta {
-    private int numero;
-    private int agencia;
-    private String nomeTitular;
-    private String cpf;
-    protected double saldo; // Agora o saldo é comum a ambas as contas
+public class Menu {
+	// Classe para interação com o usuário
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		Banco banco = new Banco();
 
-    public Conta(int numero, int agencia, String nomeTitular, String cpf) {
-        this.numero = numero;
-        this.agencia = agencia;
-        this.nomeTitular = nomeTitular;
-        this.cpf = cpf;
-        this.saldo = 0.0; // Inicializa o saldo como zero
-    }
+		// Exemplo de utilização
+		ContaCorrente corrente = new ContaCorrente(1, 123, "Marta", "123.456.789-00", 1000.0);
+		ContaPoupanca poupanca = new ContaPoupanca(2, 456, "Carlos", "987.654.321-00", 15);
 
-    // Métodos getters
-    public int getNumero() {
-        return numero;
-    }
+		banco.cadastrarConta(corrente);
+		banco.cadastrarConta(poupanca);
 
-    public int getAgencia() {
-        return agencia;
-    }
+		int opcao;
+		do {
+			System.out.println("\n--- Menu ---");
+			System.out.println("1. Exibir informações da conta corrente");
+			System.out.println("2. Exibir informações da conta poupança");
+			System.out.println("3. Realizar saque");
+			System.out.println("4. Realizar depósito");
+			System.out.println("5. Realizar transferência");
+			System.out.println("0. Sair");
+			System.out.print("Escolha uma opção: ");
+			opcao = scanner.nextInt();
 
-    public String getNomeTitular() {
-        return nomeTitular;
-    }
+			switch (opcao) {
+			case 1:
+				corrente.exibirInformacoes();
+				break;
+			case 2:
+				poupanca.exibirInformacoes();
+				break;
+			case 3:
+				System.out.print("Informe o valor do saque: ");
+				double valorSaque = scanner.nextDouble();
+				OperacoesBancarias.realizarSaque(corrente, valorSaque);
+				break;
+			case 4:
+				System.out.print("Informe o valor do depósito: ");
+				double valorDeposito = scanner.nextDouble();
+				OperacoesBancarias.realizarDeposito(corrente, valorDeposito);
+				break;
+			case 5:
+				System.out.print("Informe o valor da transferência: ");
+				double valorTransferencia = scanner.nextDouble();
+				OperacoesBancarias.realizarTransferencia(corrente, poupanca, valorTransferencia);
+				break;
+			case 0:
+				System.out.println("Saindo do programa.");
+				break;
+			default:
+				System.out.println("Opção inválida. Tente novamente.");
+			}
+		} while (opcao != 0);
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    // Método para exibir informações da conta
-    public void exibirInformacoes() {
-        System.out.println("Número: " + numero);
-        System.out.println("Agência: " + agencia);
-        System.out.println("Titular: " + nomeTitular);
-        System.out.println("CPF: " + cpf);
-        System.out.println("Saldo: R$ " + saldo);
-    }
-    
- // Métodos bancários comuns
-    public void realizarSaque(double valor) {
-        if (valor > 0 && valor <= saldo) {
-            saldo -= valor;
-            System.out.println("Saque de R$ " + valor + " realizado com sucesso.");
-        } else {
-            System.out.println("Saldo insuficiente ou valor inválido para saque.");
-        }
-    }
-
-    public void realizarDeposito(double valor) {
-        if (valor > 0) {
-            saldo += valor;
-            System.out.println("Depósito de R$ " + valor + " realizado com sucesso.");
-        } else {
-            System.out.println("Valor inválido para depósito.");
-        }
-    }
-
-    public void realizarTransferencia(Conta destino, double valor) {
-        if (valor > 0 && valor <= saldo) {
-            saldo -= valor;
-            destino.saldo += valor;
-            System.out.println("Transferência de R$ " + valor + " realizada com sucesso para a conta de "
-                    + destino.getNomeTitular() + ".");
-        } else {
-            System.out.println("Saldo insuficiente ou valor inválido para transferência.");
-        }
-    }
+		scanner.close();
+	}
 }
